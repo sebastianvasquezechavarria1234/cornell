@@ -1,24 +1,12 @@
-<div align="center">
+![Preview](img/preview.jpg)
+<div>
 
 # Cornell Box
 
 ### *An interactive lighting scene built with Three.js*
-
-![Preview](img/preview.jpg)
-
 <br/>
-
-![Three.js](https://img.shields.io/badge/Three.js-v0.164-black?style=flat-square&logo=three.js)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-
-<br/>
-
-```
 A 3D scene that explores lighting, materials, and movement
 within a controlled enclosed space.
-```
 
 </div>
 
@@ -351,11 +339,7 @@ Produces shadows with softened edges, more realistic than `BasicShadowMap` hard 
 ---
 
 <div align="center">
-
 *"Light doesn't just illuminate objects. It defines them."*
-
 <br/>
-
-Built with Three.js
-
+Made with ❤️ by <a href="https://sebas-dev.vercel.app/" target="_blank" rel="noopener noreferrer">Sebastián V</a>
 </div>
