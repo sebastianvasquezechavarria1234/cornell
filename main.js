@@ -76,11 +76,26 @@ ceil.position.set(0, H, 0);
 ceil.receiveShadow = true;
 scene.add(ceil);
 
+// Ceiling light geometry
+const lightGeo = new THREE.BoxGeometry(0.6, 0.1, 0.6);
+const lightMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.3, metalness: 0.0, emissive: '#ffffff', emissiveIntensity: 0.5 });
+const lightMesh = new THREE.Mesh(lightGeo, lightMat);
+lightMesh.position.set(0, H - 0.05, 0);
+scene.add(lightMesh);
+
+const ceilingLight = new THREE.PointLight('#ffffff', 40, 30);
+ceilingLight.position.set(0, H - 0.2, 0);
+ceilingLight.castShadow = true;
+ceilingLight.shadow.mapSize.set(1024, 1024);
+ceilingLight.shadow.camera.near = 0.1;
+ceilingLight.shadow.camera.far = 20;
+scene.add(ceilingLight);
+
 // Sphere inside
-const sphereGeo = new THREE.SphereGeometry(0.8, 64, 64);
-const sphereMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.2, metalness: 0.0 });
+const sphereGeo = new THREE.SphereGeometry(0.5, 64, 64);
+const sphereMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.1, metalness: 0.9 });
 const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-sphere.position.set(0.5, 0.8, 0.5);
+sphere.position.set(0.5, 0.5, 0.5);
 sphere.castShadow = true;
 sphere.receiveShadow = true;
 scene.add(sphere);
