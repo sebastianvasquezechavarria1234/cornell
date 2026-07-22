@@ -91,14 +91,22 @@ ceilingLight.shadow.camera.near = 0.1;
 ceilingLight.shadow.camera.far = 20;
 scene.add(ceilingLight);
 
-// Sphere inside
-const sphereGeo = new THREE.SphereGeometry(0.5, 64, 64);
-const sphereMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.1, metalness: 0.9 });
-const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-sphere.position.set(0.5, 0.5, 0.5);
-sphere.castShadow = true;
-sphere.receiveShadow = true;
-scene.add(sphere);
+// Tall geometry in corner with sphere on top
+const pillarGeo = new THREE.BoxGeometry(0.6, 2.5, 0.6);
+const pillarMat = new THREE.MeshStandardMaterial({ color: '#555555', roughness: 0.4, metalness: 0.6 });
+const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+pillar.position.set(-1.3, 1.25, -1.3);
+pillar.castShadow = true;
+pillar.receiveShadow = true;
+scene.add(pillar);
+
+const topSphereGeo = new THREE.SphereGeometry(0.4, 64, 64);
+const topSphereMat = new THREE.MeshStandardMaterial({ color: '#ff6b6b', roughness: 0.1, metalness: 0.9 });
+const topSphere = new THREE.Mesh(topSphereGeo, topSphereMat);
+topSphere.position.set(-1.3, 2.9, -1.3);
+topSphere.castShadow = true;
+topSphere.receiveShadow = true;
+scene.add(topSphere);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
