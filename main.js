@@ -23,16 +23,8 @@ controls.dampingFactor = 0.05;
 controls.target.set(0, 1.5, 0);
 
 // Lights
-const ambientLight = new THREE.AmbientLight('#404040', 0.3);
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
 scene.add(ambientLight);
-
-const topLight = new THREE.PointLight('#ffffff', 80, 100);
-topLight.position.set(0, 4.8, 0);
-topLight.castShadow = true;
-topLight.shadow.mapSize.set(2048, 2048);
-topLight.shadow.camera.near = 0.1;
-topLight.shadow.camera.far = 50;
-scene.add(topLight);
 
 // Cornell box dimensions
 const W = 4;   // width (X)
@@ -78,7 +70,7 @@ scene.add(right);
 
 // Ceiling
 const ceilGeo = new THREE.PlaneGeometry(W, D);
-const ceil = new THREE.Mesh(ceilGeo, whiteMat);
+const ceil = new THREE.Mesh(ceilGeo, yellowPastelMat);
 ceil.rotation.x = Math.PI / 2;
 ceil.position.set(0, H, 0);
 ceil.receiveShadow = true;
