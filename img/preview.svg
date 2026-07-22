@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="ceilingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdfd96"/>
+      <stop offset="100%" style="stop-color:#e6e680"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d0d0d0"/>
+      <stop offset="100%" style="stop-color:#a0a0a0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- Cornell Box - Back Wall -->
+  <polygon points="150,80 650,80 650,420 150,420" fill="#c8c8c8"/>
+
+  <!-- Left Wall (Red) -->
+  <polygon points="150,80 50,130 50,380 150,420" fill="#cc3333"/>
+
+  <!-- Right Wall (Green) -->
+  <polygon points="650,80 750,130 750,380 650,420" fill="#33aa33"/>
+
+  <!-- Ceiling (Yellow Pastel) -->
+  <polygon points="150,80 50,130 750,130 650,80" fill="url(#ceilingGrad)"/>
+
+  <!-- Floor -->
+  <polygon points="150,420 50,380 750,380 650,420" fill="url(#floorGrad)"/>
+
+  <!-- Pillar 1 - Short (Red) -->
+  <rect x="180" y="310" width="45" height="110" fill="#e74c3c" rx="2"/>
+  <!-- Sphere 1 (Yellow) -->
+  <circle cx="202" cy="298" r="18" fill="#f1c40f" filter="url(#glow)"/>
+
+  <!-- Pillar 2 - Medium (Green) -->
+  <rect x="370" y="250" width="45" height="170" fill="#2ecc71" rx="2"/>
+  <!-- Sphere 2 (Purple) -->
+  <circle cx="392" cy="236" r="18" fill="#9b59b6" filter="url(#glow)"/>
+
+  <!-- Pillar 3 - Tall (Blue) -->
+  <rect x="560" y="200" width="45" height="220" fill="#3498db" rx="2"/>
+  <!-- Sphere 3 (Orange) -->
+  <circle cx="582" cy="186" r="18" fill="#e67e22" filter="url(#glow)"/>
+
+  <!-- Moving Light Spheres -->
+  <circle cx="250" cy="200" r="4" fill="#ff0000" filter="url(#softGlow)"/>
+  <circle cx="450" cy="320" r="4" fill="#00ff00" filter="url(#softGlow)"/>
+  <circle cx="600" cy="180" r="4" fill="#0000ff" filter="url(#softGlow)"/>
+  <circle cx="300" cy="350" r="4" fill="#ffff00" filter="url(#softGlow)"/>
+  <circle cx="500" cy="150" r="4" fill="#ff00ff" filter="url(#softGlow)"/>
+  <circle cx="180" cy="280" r="4" fill="#00ffff" filter="url(#softGlow)"/>
+  <circle cx="620" cy="300" r="4" fill="#ff8800" filter="url(#softGlow)"/>
+  <circle cx="350" cy="180" r="4" fill="#88ff00" filter="url(#softGlow)"/>
+
+  <!-- Light rays from moving spheres -->
+  <circle cx="250" cy="200" r="25" fill="#ff0000" opacity="0.08"/>
+  <circle cx="450" cy="320" r="25" fill="#00ff00" opacity="0.08"/>
+  <circle cx="600" cy="180" r="25" fill="#0000ff" opacity="0.08"/>
+  <circle cx="300" cy="350" r="25" fill="#ffff00" opacity="0.08"/>
+  <circle cx="500" cy="150" r="25" fill="#ff00ff" opacity="0.08"/>
+  <circle cx="180" cy="280" r="25" fill="#00ffff" opacity="0.08"/>
+  <circle cx="620" cy="300" r="25" fill="#ff8800" opacity="0.08"/>
+  <circle cx="350" cy="180" r="25" fill="#88ff00" opacity="0.08"/>
+
+  <!-- Title -->
+  <text x="400" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffffff" letter-spacing="4">CORNELL BOX</text>
+  <text x="400" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888888" letter-spacing="2">THREE.JS INTERACTIVE SCENE</text>
+</svg>
