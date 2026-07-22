@@ -4,7 +4,6 @@
 # Cornell Box
 
 ### *An interactive lighting scene built with Three.js*
-<br/>
 A 3D scene that explores lighting, materials, and movement
 within a controlled enclosed space.
 
@@ -339,7 +338,7 @@ Produces shadows with softened edges, more realistic than `BasicShadowMap` hard 
 ---
 
 <div align="center">
-*"Light doesn't just illuminate objects. It defines them."*
+*Light doesn't just illuminate objects. It defines them.*
 <br/>
 Made with ❤️ by <a href="https://sebas-dev.vercel.app/" target="_blank" rel="noopener noreferrer">Sebastián V</a>
 </div>
