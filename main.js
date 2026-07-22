@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvas = document.getElementById('webgl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -15,6 +16,11 @@ scene.background = new THREE.Color('#1a1a2e');
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 2, 6);
 camera.lookAt(0, 0, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.target.set(0, 0, 0);
 
 const ambientLight = new THREE.AmbientLight('#404060', 0.4);
 scene.add(ambientLight);
@@ -107,14 +113,6 @@ cone.castShadow = true;
 cone.receiveShadow = true;
 scene.add(cone);
 
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-  mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-});
-
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -145,9 +143,7 @@ function animate() {
   cone.rotation.y = elapsed * 0.5;
   cone.position.y = 0.5 + Math.sin(elapsed * 1.1 + 4) * 0.25;
 
-  camera.position.x += (mouseX * 3 - camera.position.x) * 0.02;
-  camera.position.y += (mouseY * 2 + 2 - camera.position.y) * 0.02;
-  camera.lookAt(0, 0, 0);
+  controls.update();
 
   pointLight.position.x = Math.sin(elapsed) * 4;
   pointLight.position.z = Math.cos(elapsed) * 4;
