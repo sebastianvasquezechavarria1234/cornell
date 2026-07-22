@@ -126,38 +126,37 @@ scene.add(s3);
 
 // Small moving spheres with lights
 const movingSpheres = [];
-const sphereCount = 5;
-const sphereColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
-const limit = 1.6;
+const sphereCount = 8;
+const sphereColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#88ff00'];
+const limit = 1.7;
 
 for (let i = 0; i < sphereCount; i++) {
-  const geo = new THREE.SphereGeometry(0.1, 32, 32);
+  const geo = new THREE.SphereGeometry(0.03, 32, 32);
   const mat = new THREE.MeshStandardMaterial({
     color: sphereColors[i],
     emissive: sphereColors[i],
-    emissiveIntensity: 0.8,
+    emissiveIntensity: 1.2,
     roughness: 0.2,
     metalness: 0.8
   });
   const sphere = new THREE.Mesh(geo, mat);
-  sphere.position.set(
-    (Math.random() - 0.5) * 3,
-    0.5 + Math.random() * 2,
-    (Math.random() - 0.5) * 3
-  );
   scene.add(sphere);
 
-  const light = new THREE.PointLight(sphereColors[i], 5, 8);
-  light.position.copy(sphere.position);
+  const light = new THREE.PointLight(sphereColors[i], 2, 4);
   scene.add(light);
 
+  // Each sphere has unique path parameters
   movingSpheres.push({
     mesh: sphere,
     light: light,
-    speed: 0.5 + Math.random() * 1.5,
+    speedX: 1.5 + Math.random() * 2.0,
+    speedY: 1.0 + Math.random() * 1.5,
+    speedZ: 1.2 + Math.random() * 1.8,
     offset: Math.random() * Math.PI * 2,
-    radiusX: 0.8 + Math.random() * 0.8,
-    radiusZ: 0.8 + Math.random() * 0.8
+    radiusX: 0.5 + Math.random() * 1.0,
+    radiusZ: 0.5 + Math.random() * 1.0,
+    baseY: 0.3 + Math.random() * 2.5,
+    amplitudeY: 0.3 + Math.random() * 0.8
   });
 }
 
@@ -173,14 +172,14 @@ function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
 
-  movingSpheres.forEach((s, i) => {
-    const x = Math.sin(t * s.speed + s.offset) * s.radiusX;
-    const z = Math.cos(t * s.speed + s.offset) * s.radiusZ;
-    const y = 0.5 + Math.sin(t * s.speed * 0.7 + s.offset) * 1.5;
+  movingSpheres.forEach((s) => {
+    const x = Math.sin(t * s.speedX + s.offset) * s.radiusX;
+    const z = Math.cos(t * s.speedZ + s.offset * 1.3) * s.radiusZ;
+    const y = s.baseY + Math.sin(t * s.speedY + s.offset * 0.7) * s.amplitudeY;
 
     s.mesh.position.x = Math.max(-limit, Math.min(limit, x));
     s.mesh.position.z = Math.max(-limit, Math.min(limit, z));
-    s.mesh.position.y = y;
+    s.mesh.position.y = Math.max(0.1, Math.min(H - 0.1, y));
 
     s.light.position.copy(s.mesh.position);
   });
