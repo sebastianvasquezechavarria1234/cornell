@@ -25,8 +25,6 @@ controls.target.set(0, 1.5, 0);
 // Lights
 const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
 scene.add(ambientLight);
-
-// Cornell box dimensions
 const W = 4;   // width (X)
 const H = 4;   // height (Y)
 const D = 4;   // depth (Z)
@@ -76,37 +74,92 @@ ceil.position.set(0, H, 0);
 ceil.receiveShadow = true;
 scene.add(ceil);
 
-// Ceiling light geometry
-const lightGeo = new THREE.BoxGeometry(0.6, 0.1, 0.6);
-const lightMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.3, metalness: 0.0, emissive: '#ffffff', emissiveIntensity: 0.5 });
-const lightMesh = new THREE.Mesh(lightGeo, lightMat);
-lightMesh.position.set(0, H - 0.05, 0);
-scene.add(lightMesh);
+// Pillars with spheres on top
 
-const ceilingLight = new THREE.PointLight('#ffffff', 40, 30);
-ceilingLight.position.set(0, H - 0.2, 0);
-ceilingLight.castShadow = true;
-ceilingLight.shadow.mapSize.set(1024, 1024);
-ceilingLight.shadow.camera.near = 0.1;
-ceilingLight.shadow.camera.far = 20;
-scene.add(ceilingLight);
+// Pillar 1 - short, front left
+const p1Geo = new THREE.BoxGeometry(0.6, 1.2, 0.6);
+const p1Mat = new THREE.MeshStandardMaterial({ color: '#e74c3c', roughness: 0.4, metalness: 0.5 });
+const p1 = new THREE.Mesh(p1Geo, p1Mat);
+p1.position.set(-1.3, 0.6, 1.0);
+p1.castShadow = true;
+p1.receiveShadow = true;
+scene.add(p1);
 
-// Tall geometry in corner with sphere on top
-const pillarGeo = new THREE.BoxGeometry(0.6, 2.5, 0.6);
-const pillarMat = new THREE.MeshStandardMaterial({ color: '#555555', roughness: 0.4, metalness: 0.6 });
-const pillar = new THREE.Mesh(pillarGeo, pillarMat);
-pillar.position.set(-1.3, 1.25, -1.3);
-pillar.castShadow = true;
-pillar.receiveShadow = true;
-scene.add(pillar);
+const s1Geo = new THREE.SphereGeometry(0.35, 64, 64);
+const s1 = new THREE.Mesh(s1Geo, new THREE.MeshStandardMaterial({ color: '#f1c40f', roughness: 0.1, metalness: 0.9 }));
+s1.position.set(-1.3, 1.55, 1.0);
+s1.castShadow = true;
+s1.receiveShadow = true;
+scene.add(s1);
 
-const topSphereGeo = new THREE.SphereGeometry(0.4, 64, 64);
-const topSphereMat = new THREE.MeshStandardMaterial({ color: '#ff6b6b', roughness: 0.1, metalness: 0.9 });
-const topSphere = new THREE.Mesh(topSphereGeo, topSphereMat);
-topSphere.position.set(-1.3, 2.9, -1.3);
-topSphere.castShadow = true;
-topSphere.receiveShadow = true;
-scene.add(topSphere);
+// Pillar 2 - medium, center
+const p2Geo = new THREE.BoxGeometry(0.6, 2.0, 0.6);
+const p2Mat = new THREE.MeshStandardMaterial({ color: '#2ecc71', roughness: 0.4, metalness: 0.5 });
+const p2 = new THREE.Mesh(p2Geo, p2Mat);
+p2.position.set(0.2, 1.0, 0.0);
+p2.castShadow = true;
+p2.receiveShadow = true;
+scene.add(p2);
+
+const s2Geo = new THREE.SphereGeometry(0.35, 64, 64);
+const s2 = new THREE.Mesh(s2Geo, new THREE.MeshStandardMaterial({ color: '#9b59b6', roughness: 0.1, metalness: 0.9 }));
+s2.position.set(0.2, 2.35, 0.0);
+s2.castShadow = true;
+s2.receiveShadow = true;
+scene.add(s2);
+
+// Pillar 3 - tall, back right
+const p3Geo = new THREE.BoxGeometry(0.6, 2.8, 0.6);
+const p3Mat = new THREE.MeshStandardMaterial({ color: '#3498db', roughness: 0.4, metalness: 0.5 });
+const p3 = new THREE.Mesh(p3Geo, p3Mat);
+p3.position.set(1.3, 1.4, -0.8);
+p3.castShadow = true;
+p3.receiveShadow = true;
+scene.add(p3);
+
+const s3Geo = new THREE.SphereGeometry(0.35, 64, 64);
+const s3 = new THREE.Mesh(s3Geo, new THREE.MeshStandardMaterial({ color: '#e67e22', roughness: 0.1, metalness: 0.9 }));
+s3.position.set(1.3, 3.15, -0.8);
+s3.castShadow = true;
+s3.receiveShadow = true;
+scene.add(s3);
+
+// Small moving spheres with lights
+const movingSpheres = [];
+const sphereCount = 5;
+const sphereColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+const limit = 1.6;
+
+for (let i = 0; i < sphereCount; i++) {
+  const geo = new THREE.SphereGeometry(0.1, 32, 32);
+  const mat = new THREE.MeshStandardMaterial({
+    color: sphereColors[i],
+    emissive: sphereColors[i],
+    emissiveIntensity: 0.8,
+    roughness: 0.2,
+    metalness: 0.8
+  });
+  const sphere = new THREE.Mesh(geo, mat);
+  sphere.position.set(
+    (Math.random() - 0.5) * 3,
+    0.5 + Math.random() * 2,
+    (Math.random() - 0.5) * 3
+  );
+  scene.add(sphere);
+
+  const light = new THREE.PointLight(sphereColors[i], 5, 8);
+  light.position.copy(sphere.position);
+  scene.add(light);
+
+  movingSpheres.push({
+    mesh: sphere,
+    light: light,
+    speed: 0.5 + Math.random() * 1.5,
+    offset: Math.random() * Math.PI * 2,
+    radiusX: 0.8 + Math.random() * 0.8,
+    radiusZ: 0.8 + Math.random() * 0.8
+  });
+}
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -114,8 +167,24 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+const clock = new THREE.Clock();
+
 function animate() {
   requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  movingSpheres.forEach((s, i) => {
+    const x = Math.sin(t * s.speed + s.offset) * s.radiusX;
+    const z = Math.cos(t * s.speed + s.offset) * s.radiusZ;
+    const y = 0.5 + Math.sin(t * s.speed * 0.7 + s.offset) * 1.5;
+
+    s.mesh.position.x = Math.max(-limit, Math.min(limit, x));
+    s.mesh.position.z = Math.max(-limit, Math.min(limit, z));
+    s.mesh.position.y = y;
+
+    s.light.position.copy(s.mesh.position);
+  });
+
   controls.update();
   renderer.render(scene, camera);
 }
